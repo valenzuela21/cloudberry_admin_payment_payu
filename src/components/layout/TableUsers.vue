@@ -38,7 +38,7 @@
         </b-table-column>
         <b-table-column field="options" label="Opciones" width="40"  v-slot="props">
           <div class="buttons" v-if="props.row.permision === '0'">
-            <ModalEdit class="m-1" :formModalData="[props.row.id, props.row.id_user, props.row.email, props.row.name_user, props.row.permision]" />
+            <ModalEdit class="m-1" :formModalID="props.row.id" />
             <ModalInvoice />
           </div>
         </b-table-column>
