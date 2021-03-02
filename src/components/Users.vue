@@ -2,12 +2,12 @@
   <div>
   <Navbar/>
   <section class="section">
-      <div v-if="userInfo.permision === '1'">
-          <TableUsers/>
-      </div>
-      <div v-else>
+    <template v-if="userInfo.permision === '1'" >
+      <TableUsers/>
+    </template>
+    <template v-if="userInfo.permision === '0'" >
           <p>No estas permitido ver esta pagina</p>
-      </div>
+    </template>
   </section>
   </div>
 </template>
@@ -17,9 +17,11 @@ import Navbar from './layout/Navbar'
 import TableUsers from './layout/TableUsers'
 
 import {mapState} from 'vuex'
+import session from '../mixins/session'
 
 export default {
   name: 'Users',
+  mixins: [session],
   data () {
     return {
       data: [],

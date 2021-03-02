@@ -1,4 +1,5 @@
 <template>
+  <div>
   <b-navbar>
     <template #brand>
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
@@ -9,12 +10,13 @@
       </b-navbar-item>
     </template>
     <template #start>
-        <router-link class="navbar-item" to="users">Usuarios</router-link>
+        <router-link class="navbar-item" to="users" v-if="userInfo.permision === '1'">
+          Usuarios
+        </router-link>
     </template>
 
     <template #end>
       <b-dropdown
-        v-model="navigation"
         position="is-bottom-left"
         append-to-body
         aria-role="menu">
@@ -48,6 +50,7 @@
       </b-dropdown>
     </template>
   </b-navbar>
+  </div>
 </template>
 
 <script>

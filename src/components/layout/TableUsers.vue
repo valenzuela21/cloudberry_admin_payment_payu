@@ -6,6 +6,8 @@
         :data="data"
         :current-page.sync="currentPage"
         :per-page="perPage"
+        :default-sort-direction="defaultSortDirection"
+        default-sort="updated_at"
         aria-next-label="Next page"
         aria-previous-label="Previous page"
         aria-page-label="Page"
@@ -27,34 +29,35 @@
           <span class="is-size-7" :class="props.row.permision === '1' ? 'tag is-success' : 'tag is-danger'" >{{ permision(props.row.permision) }}</span>
         </b-table-column>
 
-        <b-table-column field="created_at" label="Fecha Creación" width="40"  v-slot="props">
+        <b-table-column field="created_at" label="Fecha Creación" width="40" sortable  v-slot="props">
           <span class="tag">{{ props.row.created_at }}</span>
         </b-table-column>
 
-        <b-table-column field="updated_at" label="Fecha Actualización" width="40"  v-slot="props">
+        <b-table-column field="updated_at" label="Fecha Actualización" width="40" sortable  v-slot="props">
           <span class="tag">{{ props.row.updated_at }}</span>
         </b-table-column>
         <b-table-column field="options" label="Opciones" width="40"  v-slot="props">
           <div class="buttons" v-if="props.row.permision === '0'">
-            <b-button type="is-primary"
-                      icon-left="lead-pencil"
-                      @click="editUser(props.row.id)" />
-            <b-button type="is-success"
-                      icon-left="currency-usd" />
+            <ModalEdit class="m-1" :formModalData="[props.row.id, props.row.id_user, props.row.email, props.row.name_user, props.row.permision]" />
+            <ModalInvoice />
           </div>
         </b-table-column>
       </b-table>
     </section>
-    <b-modal v-model="isEditModalActive">
 
-    </b-modal>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import ModalEdit from './aditional/ModalEdit'
+import ModalInvoice from './aditional/ModalInvoice'
 export default {
   name: 'TableUsers',
+  components: {
+    ModalEdit,
+    ModalInvoice
+  },
   data () {
     return {
       data: [],
@@ -62,7 +65,7 @@ export default {
       isPaginationSimple: false,
       isPaginationRounded: false,
       paginationPosition: 'bottom',
-      defaultSortDirection: 'asc',
+      defaultSortDirection: 'desc',
       sortIcon: 'arrow-up',
       sortIconSize: 'is-small',
       currentPage: 1,
@@ -83,14 +86,25 @@ export default {
           'Authorization': `${_token.token}`
         }
       }).then((response) => {
-        console.log(response)
         this.data = response.data
       }).catch((error) => {
         console.log(error)
       })
     },
-    editUser (_iduser) {
-      console.log(_iduser)
+    saveEditUser (e) {
+      e.preventDefault()
+      const URL_EDIT_USERS = 'http://comunicacionescloudberry.com/payment/Api/user/100'
+      let token = this.$localStorage.get('token_cloudberry')
+      let _token = JSON.parse(token)
+      axios.get(URL_EDIT_USERS, {
+        headers: {
+          'Authorization': `${_token.token}`
+        }
+      }).then((response) => {
+        console.log(response)
+      }).catch((error) => {
+        console.log(error)
+      })
     },
     permision (value) {
       if (value === '1') {
@@ -102,3 +116,6 @@ export default {
   }
 }
 </script>
+<style scoped>
+
+</style>

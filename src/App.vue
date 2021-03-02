@@ -18,7 +18,9 @@ export default {
     let token = this.$localStorage.get('token_cloudberry')
     token = JSON.parse(token)
     if (token.token) {
-      this.$router.push('admin')
+      if (this.$route.path !== '/admin') {
+        this.$router.push('/admin')
+      }
     }
   }
 }
@@ -46,7 +48,7 @@ export default {
     font-size: 12px!important;
   }
   .paper-container{
-    height: 890px;
+    height: 990px;
   }
   @media screen and (max-width: 1125px) {
     .paper-container{

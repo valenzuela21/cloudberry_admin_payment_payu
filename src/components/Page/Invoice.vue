@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import TableInvoice from '../layout/TableInvoice'
+import TableInvoice from '../layout/Tableinvoice'
 export default {
   name: 'Invoice',
   components: {
