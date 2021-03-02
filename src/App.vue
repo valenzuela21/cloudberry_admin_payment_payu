@@ -1,0 +1,61 @@
+<template>
+  <div>
+  <div id="app" class="paper-container">
+    <router-view/>
+  </div>
+  <Footer/>
+  </div>
+</template>
+
+<script>
+import Footer from './components/layout/Footer'
+export default {
+  name: 'App',
+  components: {
+    Footer
+  },
+  mounted () {
+    let token = this.$localStorage.get('token_cloudberry')
+    token = JSON.parse(token)
+    if (token.token) {
+      this.$router.push('admin')
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+  .label{
+    color: #888!important;
+    font-size: 14px!important;
+  }
+ html{
+    background: #e1e1e1!important;
+  }
+  .b-table .table th .th-wrap{
+    font-size: 12px!important;
+  }
+  a{
+    color: #2a3c77!important;
+  }
+  .pagination-link.is-current{
+    background-color: #fff!important;
+    border-color: #fff!important;
+  }
+  .b-table .table-wrapper.has-mobile-cards tr td{
+    font-size: 12px!important;
+  }
+  .paper-container{
+    height: 890px;
+  }
+  @media screen and (max-width: 1125px) {
+    .paper-container{
+      height: 1050px;
+    }
+  }
+  @media screen and (max-width: 790px ) {
+    .paper-container{
+      height: 100%;
+    }
+  }
+</style>
