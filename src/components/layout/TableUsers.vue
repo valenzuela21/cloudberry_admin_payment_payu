@@ -14,7 +14,7 @@
         aria-current-label="Current page">
 
         <b-table-column field="id_user" label="Número Cedula" width="40"  v-slot="props">
-          <span class="is-size-7">{{ props.row.id_user }}</span>
+          <span class="is-size-7">{{ props.row.cedula }}</span>
         </b-table-column>
 
         <b-table-column field="name_user" label="Nombre Completo" width="40"  v-slot="props">
@@ -102,23 +102,7 @@ export default {
         console.log(error)
       })
     },
-    saveEditUser (e) {
-      e.preventDefault()
-      const URL_EDIT_USERS = 'http://comunicacionescloudberry.com/payment/Api/user/100'
-      let token = this.$localStorage.get('token_cloudberry')
-      let _token = JSON.parse(token)
-      axios.get(URL_EDIT_USERS, {
-        headers: {
-          'Authorization': `${_token.token}`
-        }
-      }).then((response) => {
-        console.log(response)
-      }).catch((error) => {
-        console.log(error)
-      })
-    },
     modalEditUser (_id) {
-      console.log(_id)
       this.idEdit = _id
       this.enableModal = true
     },

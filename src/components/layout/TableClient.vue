@@ -15,7 +15,7 @@
       </b-table-column>
 
       <b-table-column field="Número Cedula" label="Número Cedula" width="130" v-slot="props">
-        <span class="is-size-7">{{ props.row.id_user }}</span>
+        <span class="is-size-7">{{ props.row.cedula }}</span>
       </b-table-column>
 
       <b-table-column field="Nombre Completo" label="Nombre Completo" v-slot="props">
@@ -124,7 +124,7 @@ export default {
 
     consultInvoice (_token) {
       let id = store.state.userInfo.id_user
-      const URL_INVOICE_USER = `http://comunicacionescloudberry.com/payment/Api/registro_invoice_user/${id}`
+      const URL_INVOICE_USER = `http://comunicacionescloudberry.com/payment/Api/invoices_user/${id}`
       axios.get(URL_INVOICE_USER, {
         headers: {
           'Authorization': `${_token.token}`
@@ -142,9 +142,10 @@ export default {
     consultInvoiceGeneral (idsale) {
       let _token = this.$localStorage.get('token_cloudberry')
       _token = JSON.parse(_token)
+      const URL_INVOICE_ONE_USER = 'http://comunicacionescloudberry.com/payment/Api/registro_invoice_user/' + `${idsale}`
       let config = {
         method: 'get',
-        url: 'http://comunicacionescloudberry.com/payment/Api/registro_invoice/' + `${idsale}`,
+        url: URL_INVOICE_ONE_USER + `${idsale}`,
         headers: {
           'Authorization': `${_token.token}`
         }

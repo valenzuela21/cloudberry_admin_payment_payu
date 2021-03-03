@@ -7,9 +7,9 @@
             <div class="columns is-mobile">
               <div class="column is-4-mobile  is-2-desktop mt-1"><img :src="'./static/icon-logo.png'" class="icon-image" alt="icon"/></div>
               <div class="column is-four-fifths mt-1">
-                <h2>vlzdavid12@outlook.com</h2>
-                <p class="is-size-7">David Fernnando Valenzuela Pardo</p>
-                <p class="is-size-7">CC. 10190299941</p>
+                <h1>{{userInfo.name_user}}</h1>
+                <p class="is-size-7">Correo: {{userInfo.email}}</p>
+                <p class="is-size-7">Identificación: {{userInfo.cedula}}</p>
               </div>
             </div>
           </div>
@@ -50,6 +50,8 @@
 <script>
 import TableClient from '../layout/TableClient'
 import FormPayment from '../layout/FormPayment'
+
+import {mapState} from 'vuex'
 export default {
   name: 'Client',
   data () {
@@ -60,6 +62,9 @@ export default {
   components: {
     TableClient,
     FormPayment
+  },
+  computed: {
+    ...mapState(['userInfo'])
   }
 }
 </script>

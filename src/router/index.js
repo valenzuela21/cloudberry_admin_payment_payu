@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from '../components/Login'
 import Inicio from '../components/Inicio'
 import Users from '../components/Users'
+import Config from '../components/Config'
 
 Vue.use(Router)
 
@@ -17,6 +18,11 @@ export default new Router({
       path: '/admin',
       name: 'admin',
       component: Inicio
+    },
+    {
+      path: '/config',
+      name: 'config',
+      component: Config
     },
     {
       path: '/users',

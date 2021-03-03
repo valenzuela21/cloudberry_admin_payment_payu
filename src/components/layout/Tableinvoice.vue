@@ -17,7 +17,7 @@
       </b-table-column>
 
       <b-table-column field="numero-cedula" label="Número Cedula" width="130" v-slot="props">
-        <span class="is-size-7">{{ props.row.id_user }}</span>
+        <span class="is-size-7">{{ props.row.cedula }}</span>
       </b-table-column>
 
       <b-table-column field="nombre-completo" label="Nombre Completo" v-slot="props">
@@ -72,7 +72,7 @@
             <p class="is-size-7"><b>Mobil: </b>{{data_details.mobil}} </p>
             <p class="is-size-7"><b>Correo electrónico: </b>{{data_details.email}} </p>
             <p class="is-size-7"><b>Empresa: </b>{{data_details.business}} </p>
-            <p class="is-size-7"><b>Identificación: </b> {{data_details.type_document}} {{data_details.id_user}} </p>
+            <p class="is-size-7"><b>Identificación: </b> {{data_details.type_document}} {{data_details.cedula}} </p>
             <p class="is-size-7"><b>Url Documento: </b> <a :href="data_details.document" target="_blank">{{data_details.document}}</a> </p>
           </div>
           <div class="column">
