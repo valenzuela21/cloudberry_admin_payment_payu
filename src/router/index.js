@@ -4,6 +4,7 @@ import Login from '../components/Login'
 import Inicio from '../components/Inicio'
 import Users from '../components/Users'
 import Config from '../components/Config'
+import InvoiceUser from '../components/InvoiceUser'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/users',
       name: 'users',
       component: Users
+    },
+    {
+      path: '/invoice_user/:id',
+      name: 'invoice_user',
+      component: InvoiceUser
     },
     {
       path: '*',

@@ -49,7 +49,9 @@
             <b-button type="is-primary"
                       icon-left="lead-pencil"
                       @click="modalEditUser(props.row.id)"/>
-            <b-button type="is-success"
+            <b-button tag="router-link"
+                      :to="{ path: '/invoice_user/' + props.row.id_user }"
+                      type="is-success"
                       icon-left="currency-usd" />
           </div>
         </b-table-column>
@@ -68,12 +70,11 @@
 <script>
 import axios from 'axios'
 import ModalEdit from './aditional/ModalEdit'
-import ModalInvoice from './aditional/ModalInvoice'
+
 export default {
   name: 'TableUsers',
   components: {
-    ModalEdit,
-    ModalInvoice
+    ModalEdit
   },
   data () {
     return {
