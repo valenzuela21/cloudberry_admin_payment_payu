@@ -95,6 +95,8 @@
 
 <script>
 import axios from 'axios'
+import store from '../../store'
+
 export default {
   name: 'TableInvoice',
   data () {
@@ -121,13 +123,15 @@ export default {
   methods: {
 
     consultInvoice (_token) {
-      const URL_INVOICE = 'http://comunicacionescloudberry.com/payment/Api/registro_invoice/'
-      axios.get(URL_INVOICE, {
+      let id = store.state.userInfo.id_user
+      const URL_INVOICE_USER = `http://comunicacionescloudberry.com/payment/Api/registro_invoice_user/${id}`
+      axios.get(URL_INVOICE_USER, {
         headers: {
           'Authorization': `${_token.token}`
         }
       })
         .then((response) => {
+          console.log(response)
           this.data = response.data
         })
         .catch((error) => {
@@ -176,6 +180,7 @@ export default {
       return formatter.format(value)
     }
   }
+
 }
 </script>
 

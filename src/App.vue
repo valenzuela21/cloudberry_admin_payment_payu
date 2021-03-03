@@ -21,6 +21,8 @@ export default {
       if (this.$route.path !== '/admin') {
         this.$router.push('/admin')
       }
+    } else {
+      this.$router.push('/')
     }
   }
 }

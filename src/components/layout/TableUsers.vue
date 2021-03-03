@@ -38,13 +38,22 @@
         </b-table-column>
         <b-table-column field="options" label="Opciones" width="40"  v-slot="props">
           <div class="buttons" v-if="props.row.permision === '0'">
-            <ModalEdit class="m-1" :formModalID="props.row.id" />
-            <ModalInvoice />
+            <b-button type="is-primary"
+                      icon-left="lead-pencil"
+                      @click="modalEditUser(props.row.id)"/>
+            <b-button type="is-success"
+                      icon-left="currency-usd" />
           </div>
         </b-table-column>
       </b-table>
     </section>
-
+    <b-modal :width="640" v-model="enableModal">
+      <div class="card">
+        <div class="card-content">
+          <ModalEdit :formDataId="idEdit"/>
+        </div>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -70,7 +79,9 @@ export default {
       sortIconSize: 'is-small',
       currentPage: 1,
       perPage: 10,
-      isEditModalActive: false
+      isEditModalActive: false,
+      idEdit: 0,
+      enableModal: false
     }
   },
   created () {
@@ -105,6 +116,11 @@ export default {
       }).catch((error) => {
         console.log(error)
       })
+    },
+    modalEditUser (_id) {
+      console.log(_id)
+      this.idEdit = _id
+      this.enableModal = true
     },
     permision (value) {
       if (value === '1') {

@@ -1,6 +1,5 @@
 <template>
-  <b-button type="is-success"
-            icon-left="currency-usd" />
+<div>Modal Invoice Personal</div>
 </template>
 
 <script>

@@ -1,20 +1,16 @@
 <template>
-  <div>
-    <b-modal :width="640" v-model="modalActive">
-      <div class="card">
-        <div class="card-content">
           <form @submit.prevent="checkEditUser">
             <b-field label="Nombre Completo"
                      type="is-danger"
                      message="Ingresa el nombre usuario">
-              <b-input v-model="name">
+              <b-input v-model="dataFormEdit.name_user">
               </b-input>
             </b-field>
             <b-field label="Correo Electrónico"
                      type="is-danger"
                      message="Ingresa el correo electrónico">
               <b-input type="email"
-                       v-model="email">
+                       v-model="dataFormEdit.email">
               </b-input>
             </b-field>
             <b-field label="Contraseña">
@@ -24,12 +20,12 @@
               </b-input>
             </b-field>
             <div class="block mt-5">
-              <b-radio v-model="permission"
+              <b-radio v-model="dataFormEdit.permision"
                        name="permision"
                        native-value="1">
                 Administrador
               </b-radio>
-              <b-radio v-model="permission"
+              <b-radio v-model="dataFormEdit.permision"
                        name="permision"
                        native-value="0">
                 Usuario
@@ -46,31 +42,32 @@
               </div>
             </div>
           </form>
-        </div>
-      </div>
-    </b-modal>
-    <b-button type="is-primary"
-              icon-left="lead-pencil"
-              @click="modalActive = true"/>
-  </div>
 </template>
 
 <script>
 import axios from 'axios'
 export default {
   name: 'ModalEdit',
-  props: ['formModalID'],
+  props: ['formDataId'],
   data () {
     return {
-      id: this.formModalID,
-      modalActive: false
+      id: this.formDataId,
+      dataFormEdit: [],
+      password: ''
     }
   },
+
+  mounted () {
+    this.consultEdit()
+  },
+
   methods: {
     checkEditUser () {
+      let data = {'name': this.name, 'contrasena': this.contrasena, 'email': this.email, 'permision': this.permission}
+
       let token = this.$localStorage.get('token_cloudberry')
       let _token = JSON.parse(token)
-      let data = {'name': this.name, 'contrasena': this.contrasena, 'email': this.email, 'permision': this.permission}
+
       let config = {
         method: 'put',
         url: `http://comunicacionescloudberry.com/payment/Api/user/${this.id}`,
@@ -83,7 +80,7 @@ export default {
 
       axios(config)
         .then((response) => {
-          console.log(JSON.stringify(response.data))
+          console.log(response.data)
         })
         .catch((error) => {
           console.log(error)
@@ -91,8 +88,23 @@ export default {
     },
 
     consultEdit () {
+      let token = this.$localStorage.get('token_cloudberry')
+      let _token = JSON.parse(token)
 
+      let config = {
+        method: 'get',
+        url: `http://comunicacionescloudberry.com/payment/Api/users/${this.id}`,
+        headers: {
+          'Authorization': `${_token.token}`
+        },
+        data: ''
+      }
 
+      axios(config).then((response) => {
+        console.log(response)
+        this.dataFormEdit = response.data[0]
+      })
+        .catch((error) => console.log(error))
     }
 
   }

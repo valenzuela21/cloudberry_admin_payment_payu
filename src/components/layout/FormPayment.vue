@@ -32,11 +32,6 @@
              placeholder = "Ingresa correo del pagante">
     </b-input>
   </b-field>
-  <b-field label="Número identificación o cédula">
-    <b-input v-model="cedula"
-             placeholder = "Ingresa el número identificación"
-    ></b-input>
-  </b-field>
   <b-field label="Número telefóncio">
     <b-input v-model="phone"
              placeholder = "Ingresa el número mobil del pagante"
