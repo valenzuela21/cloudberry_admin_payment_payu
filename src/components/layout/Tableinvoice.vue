@@ -1,5 +1,13 @@
 <template>
   <section>
+
+    <template>
+      <b-input
+        placeholder="Search..."
+        icon="magnify"
+        class="mb-4"/>
+    </template>
+
     <b-table
       :paginated="isPaginated"
       :data="data"
@@ -10,18 +18,21 @@
       aria-next-label="Next page"
       aria-previous-label="Previous page"
       aria-page-label="Page"
-      aria-current-label="Current page">
+      aria-current-label="Current page"
+    >
 
       <b-table-column field="numero-pedido" label="Número Pedido" sortable width="120" v-slot="props">
         <span class="is-size-7">{{ props.row.id_sale }}</span>
       </b-table-column>
 
       <b-table-column field="numero-cedula" label="Número Cedula" width="130" v-slot="props">
-        <span class="is-size-7">{{ props.row.cedula }}</span>
+          {{ props.row.cedula }}
       </b-table-column>
 
       <b-table-column field="nombre-completo" label="Nombre Completo" v-slot="props">
-        <span class="is-size-7"> {{ props.row.name }}</span>
+
+          <span class="is-size-7"> {{ props.row.name }}</span>
+
       </b-table-column>
 
       <b-table-column field="email" label="Email" v-slot="props">

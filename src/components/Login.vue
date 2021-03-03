@@ -1,5 +1,5 @@
 <template>
-  <div class="columns p-5 bg-login">
+  <div class="columns p-5 bg-login with-login">
     <div class="column card is-half is-offset-one-quarter mt-6">
       <img class="logo-login" :src="'./static/logo.png'">
       <div v-html="alert_login" ></div>
@@ -115,7 +115,10 @@ export default {
     text-align: center;
     display: block;
   }
-
+  .with-login{
+    max-width: 790px;
+    margin: auto;
+  }
   .logo-login {
     margin: auto;
     text-align: center;

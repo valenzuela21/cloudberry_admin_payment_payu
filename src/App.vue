@@ -52,6 +52,9 @@ export default {
   .paper-container{
     height: 990px;
   }
+  a.dropdown-item.is-active, .dropdown .dropdown-menu .has-link a.is-active, button.dropdown-item.is-active{
+    background: #fff!important;
+  }
   @media screen and (max-width: 1125px) {
     .paper-container{
       height: 1050px;

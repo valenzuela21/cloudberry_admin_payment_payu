@@ -20,8 +20,8 @@ export default new Router({
       component: Inicio
     },
     {
-      path: '/config',
-      name: 'config',
+      path: '/settings',
+      name: 'settings',
       component: Config
     },
     {

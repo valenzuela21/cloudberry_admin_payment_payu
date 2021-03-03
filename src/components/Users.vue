@@ -6,7 +6,10 @@
       <TableUsers/>
     </template>
     <template v-if="userInfo.permision === '0'" >
-          <p>No estas permitido ver esta pagina</p>
+      <div>
+        <img class="image-block" :src="'./static/block.png'" alt="block-page" />
+          <p class="txt-block">No tienes permisos para ver esta pagina</p>
+      </div>
     </template>
   </section>
   </div>
@@ -21,7 +24,6 @@ import session from '../mixins/session'
 
 export default {
   name: 'Users',
-  mixins: [session],
   data () {
     return {
       data: [],
@@ -40,6 +42,7 @@ export default {
     Navbar,
     TableUsers
   },
+  mixins: [session],
   computed: {
     ...mapState(['userInfo'])
   }
@@ -47,5 +50,14 @@ export default {
 </script>
 
 <style scoped>
-
+.image-block{
+  width: 250px;
+  margin: auto;
+  display: block;
+}
+.txt-block{
+  text-align: center;
+  color: #7e7e7e;
+  margin-top:30px
+}
 </style>

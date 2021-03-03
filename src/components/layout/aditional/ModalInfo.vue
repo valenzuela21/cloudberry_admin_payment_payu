@@ -1,63 +1,40 @@
 <template>
   <div v-if="status === false">
-          <form @submit.prevent="checkEditUser">
-            <b-field label="Nombre Completo"
-                     :type="errors.name_type"
-                     :message="errors.name">
-              <b-input v-model="dataFormEdit.name_user"
-                       id="name"
-                       name="name">
-              </b-input>
-            </b-field>
-            <b-field label="Correo Electrónico"
-                     :type="errors.email_type"
-                     :message="errors.email">
-              <b-input type="email"
-                       v-model="dataFormEdit.email"
-                       id="email"
-                       name="email">
-              </b-input>
-            </b-field>
-            <b-field label="Cedula"
-                     :type="errors.cedula_type"
-                     :message="errors.cedula">
-              <b-input v-model="dataFormEdit.cedula"
-                       id="cedula"
-                       name="cedula">
-              </b-input>
-            </b-field>
-            <b-field label="Contraseña"
-                     :type="errors.password_type"
-                     :message="errors.password">
-              <b-input type="password"
-                       v-model="password"
-                       name="password"
-                       id="password"
-                       password-reveal>
-              </b-input>
-            </b-field>
-            <div class="block mt-5">
-              <b-radio v-model="dataFormEdit.permision"
-                       name="permision"
-                       id="permsion"
-                       native-value="1">
-                Administrador
-              </b-radio>
-              <b-radio v-model="dataFormEdit.permision"
-                       id="permision"
-                       name="permision"
-                       native-value="0">
-                Usuario
-              </b-radio>
-            </div>
-                <div class="buttons">
-                  <b-button type="is-primary"
-                            native-type="submit"
-                            expanded >
-                  Guardar Cambios
-                  </b-button>
-                </div>
-          </form>
+    <form @submit.prevent="checkEditUser">
+      <b-field label="Nombre Completo"
+               :type="errors.name_type"
+               :message="errors.name">
+        <b-input v-model="dataFormEdit.name_user"
+                 id="name"
+                 name="name">
+        </b-input>
+      </b-field>
+      <b-field label="Correo Electrónico"
+               :type="errors.email_type"
+               :message="errors.email">
+        <b-input type="email"
+                 v-model="dataFormEdit.email"
+                 id="email"
+                 name="email">
+        </b-input>
+      </b-field>
+      <b-field label="Cedula"
+               :type="errors.cedula_type"
+               :message="errors.cedula">
+        <b-input v-model="dataFormEdit.cedula"
+                 id="cedula"
+                 name="cedula">
+        </b-input>
+      </b-field>
+
+      <div class="buttons">
+        <b-button type="is-primary"
+                  native-type="submit"
+                  expanded >
+          Guardar Cambios
+        </b-button>
+      </div>
+    </form>
   </div>
   <div v-else>
     <img :src="'./static/save.png'" alt="save" class="image-save" />
@@ -68,7 +45,7 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'ModalEdit',
+  name: 'ModalInfo',
   props: ['formDataId'],
   data () {
     return {
@@ -111,8 +88,8 @@ export default {
         this.errors.permision_type = 'is-danger'
       }
       // eslint-disable-next-line camelcase
-      if (name_user && email && this.password && permision && cedula) {
-        let data = {'name': name_user, 'contrasena': this.password, 'email': email, 'permision': permision, 'cedula': cedula}
+      if (name_user && email && cedula) {
+        let data = { 'name': name_user, 'email': email, 'cedula': cedula }
 
         let token = this.$localStorage.get('token_cloudberry')
         let _token = JSON.parse(token)

@@ -40,8 +40,8 @@
         </b-dropdown-item>
         <hr class="dropdown-divider" aria-role="menuitem">
         <b-dropdown-item value="settings">
-          <b-icon  icon="hammer-screwdriver"></b-icon>
-         Configuración
+         <router-link to="settings"><b-icon  icon="hammer-screwdriver"></b-icon>
+         Configuración</router-link>
         </b-dropdown-item>
         <b-dropdown-item value="logout" @click="logout" aria-role="menuitem">
           <b-icon icon="logout"></b-icon>

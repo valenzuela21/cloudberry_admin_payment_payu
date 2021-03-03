@@ -1,12 +1,20 @@
 <template>
   <div>
     <section class="section">
+      <template>
+        <b-input
+          placeholder="Search..."
+          icon="magnify"
+          class="mb-4"/>
+      </template>
+
       <b-table
         :paginated="isPaginated"
         :data="data"
         :current-page.sync="currentPage"
         :per-page="perPage"
         :default-sort-direction="defaultSortDirection"
+        ref="table"
         default-sort="updated_at"
         aria-next-label="Next page"
         aria-previous-label="Previous page"
@@ -47,10 +55,10 @@
         </b-table-column>
       </b-table>
     </section>
-    <b-modal :width="640" v-model="enableModal">
+    <b-modal :width="640" v-model="enableModal" @close="closeEdit">
       <div class="card">
         <div class="card-content">
-          <ModalEdit :formDataId="idEdit"/>
+          <ModalEdit :formDataId="idEdit" />
         </div>
       </div>
     </b-modal>
@@ -81,22 +89,28 @@ export default {
       perPage: 10,
       isEditModalActive: false,
       idEdit: 0,
+      token: null,
       enableModal: false
     }
   },
-  created () {
+  mounted () {
     let token = this.$localStorage.get('token_cloudberry')
-    token = JSON.parse(token)
-    this.consultUser(token)
+    this.token = JSON.parse(token)
+    this.consultUser()
   },
   methods: {
-    consultUser (_token) {
+    closeEdit () {
+      this.$refs.table.refreshSlots()
+      this.consultUser()
+    },
+    consultUser () {
       const URL_USERS_REGISTER = 'http://comunicacionescloudberry.com/payment/Api/users/'
       axios.get(URL_USERS_REGISTER, {
         headers: {
-          'Authorization': `${_token.token}`
+          'Authorization': `${this.token.token}`
         }
       }).then((response) => {
+        console.log('Consulta satisfactoria!')
         this.data = response.data
       }).catch((error) => {
         console.log(error)
