@@ -15,7 +15,7 @@
 
       </div>
       <div class="column">
-        <p class="precio-modal">Precio: $30000</p>
+        <p>Precio: $30000</p>
       </div>
     </div>
     <b-field label="Nombre del titular">
@@ -43,6 +43,12 @@
       <b-input v-model="phone"
                placeholder="Ingresa el número mobil del pagante"
       ></b-input>
+    </b-field>
+    <b-field label="Plan a pagar">
+      <b-select placeholder="Country" icon="web" expanded>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+      </b-select>
     </b-field>
     <div class="buttons">
       <b-button type="is-primary" expanded>Pagar Ahora</b-button>
