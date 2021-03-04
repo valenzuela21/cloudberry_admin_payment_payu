@@ -1,5 +1,6 @@
 <template>
   <section>
+    <b-loading :is-full-page="true" v-model="isLoading" ></b-loading>
     <b-table
       :paginated="isPaginated"
       :data="data"
@@ -112,27 +113,31 @@ export default {
       sortIconSize: 'is-small',
       currentPage: 1,
       perPage: 8,
-      isDetailsModalActive: false
+      isDetailsModalActive: false,
+      token: null,
+      isLoading: false
     }
   },
   created () {
     let token = this.$localStorage.get('token_cloudberry')
-    token = JSON.parse(token)
-    this.consultInvoice(token)
+    this.token = JSON.parse(token)
+    this.consultInvoice()
   },
   methods: {
 
-    consultInvoice (_token) {
+    consultInvoice () {
+      this.isLoading = true
       let id = store.state.userInfo.id_user
       const URL_INVOICE_USER = `http://comunicacionescloudberry.com/payment/Api/invoices_user/${id}`
       axios.get(URL_INVOICE_USER, {
         headers: {
-          'Authorization': `${_token.token}`
+          'Authorization': `${this.token.token}`
         }
       })
         .then((response) => {
           console.log(response)
           this.data = response.data
+          this.isLoading = false
         })
         .catch((error) => {
           console.log(error)
@@ -140,20 +145,20 @@ export default {
     },
 
     consultInvoiceGeneral (idsale) {
-      let _token = this.$localStorage.get('token_cloudberry')
-      _token = JSON.parse(_token)
-      const URL_INVOICE_ONE_USER = 'http://comunicacionescloudberry.com/payment/Api/registro_invoice_user/' + `${idsale}`
+      this.isLoading = true
       let config = {
         method: 'get',
-        url: URL_INVOICE_ONE_USER + `${idsale}`,
+        url: 'http://comunicacionescloudberry.com/payment/Api/registro_invoice/' + `${idsale}`,
         headers: {
-          'Authorization': `${_token.token}`
+          'Authorization': `${this.token.token}`
         }
       }
       axios(config)
         .then((response) => {
+          console.log(response)
           this.isDetailsModalActive = true
           this.data_details = response.data[0]
+          this.isLoading = false
         }).catch((error) => {
           this.isDetailsModalActive = false
           console.log(error)
