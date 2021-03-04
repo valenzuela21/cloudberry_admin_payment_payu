@@ -51,8 +51,9 @@
                       @click="modalEditUser(props.row.id)"/>
             <b-button tag="router-link"
                       :to="{ path: '/invoice_user/' + props.row.id_user }"
-                      type="is-success"
-                      icon-left="currency-usd" />
+                      icon-left="currency-usd"
+                      type="is-primary"
+                      class="btn-invoice"/>
           </div>
         </b-table-column>
       </b-table>
@@ -132,5 +133,8 @@ export default {
 }
 </script>
 <style scoped>
+.btn-invoice{
+  color: #fff !important;
+}
 
 </style>

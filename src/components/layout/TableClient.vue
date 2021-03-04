@@ -70,7 +70,7 @@
               <p class="is-size-7"><b>Mobil: </b>{{data_details.mobil}} </p>
               <p class="is-size-7"><b>Correo electrónico: </b>{{data_details.email}} </p>
               <p class="is-size-7"><b>Empresa: </b>{{data_details.business}} </p>
-              <p class="is-size-7"><b>Identificación: </b> {{data_details.type_document}} {{data_details.id_user}} </p>
+              <p class="is-size-7"><b>Identificación: </b> {{data_details.type_document}} {{data_details.cedula}} </p>
               <p class="is-size-7"><b>Url Documento: </b> <a :href="data_details.document" target="_blank">{{data_details.document}}</a> </p>
             </div>
             <div class="column">

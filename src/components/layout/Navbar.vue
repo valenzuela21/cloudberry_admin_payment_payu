@@ -4,13 +4,13 @@
     <template #brand>
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
         <router-link to="admin"><img
-          :src="'./static/logo.png'"
+          :src="'/static/logo.png'"
           alt="cloudbery-creative"
         ></router-link>
       </b-navbar-item>
     </template>
     <template #start>
-        <router-link class="navbar-item" to="users" v-if="userInfo.permision === '1'">
+        <router-link class="navbar-item" to="/users" v-if="userInfo.permision === '1'">
           Usuarios
         </router-link>
     </template>
@@ -40,7 +40,7 @@
         </b-dropdown-item>
         <hr class="dropdown-divider" aria-role="menuitem">
         <b-dropdown-item value="settings">
-         <router-link to="settings"><b-icon  icon="hammer-screwdriver"></b-icon>
+         <router-link to="/settings"><b-icon  icon="hammer-screwdriver"></b-icon>
          Configuración</router-link>
         </b-dropdown-item>
         <b-dropdown-item value="logout" @click="logout" aria-role="menuitem">

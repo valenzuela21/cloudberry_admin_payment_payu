@@ -70,7 +70,7 @@
               <p class="is-size-7"><b>Mobil: </b>{{data_details.mobil}} </p>
               <p class="is-size-7"><b>Correo electrónico: </b>{{data_details.email}} </p>
               <p class="is-size-7"><b>Empresa: </b>{{data_details.business}} </p>
-              <p class="is-size-7"><b>Identificación: </b> {{data_details.type_document}} {{data_details.id_user}} </p>
+              <p class="is-size-7"><b>Identificación: </b> {{data_details.type_document}} {{data_details.cedula}} </p>
               <p class="is-size-7"><b>Url Documento: </b> <a :href="data_details.document" target="_blank">{{data_details.document}}</a> </p>
             </div>
             <div class="column">
@@ -111,22 +111,23 @@ export default {
       sortIconSize: 'is-small',
       currentPage: 1,
       perPage: 8,
-      isDetailsModalActive: false
+      isDetailsModalActive: false,
+      token: null
     }
   },
   created () {
     let token = this.$localStorage.get('token_cloudberry')
-    token = JSON.parse(token)
-    this.consultInvoice(token)
+    this.token = JSON.parse(token)
+    this.consultInvoice()
   },
   methods: {
 
-    consultInvoice (_token) {
+    consultInvoice () {
       let id = this.idTable
       const URL_INVOICE_USER = `http://comunicacionescloudberry.com/payment/Api/invoices_user/${id}`
       axios.get(URL_INVOICE_USER, {
         headers: {
-          'Authorization': `${_token.token}`
+          'Authorization': `${this.token.token}`
         }
       })
         .then((response) => {
@@ -139,19 +140,18 @@ export default {
     },
 
     consultInvoiceGeneral (idsale) {
-      let _token = this.$localStorage.get('token_cloudberry')
-      _token = JSON.parse(_token)
-      const URL_INVOICE_ONE_USER = 'http://comunicacionescloudberry.com/payment/Api/registro_invoice_user/' + `${idsale}`
+      console.log(idsale)
       let config = {
         method: 'get',
-        url: URL_INVOICE_ONE_USER + `${idsale}`,
+        url: 'http://comunicacionescloudberry.com/payment/Api/registro_invoice/' + `${idsale}`,
         headers: {
-          'Authorization': `${_token.token}`
+          'Authorization': `${this.token.token}`
         }
       }
       axios(config)
         .then((response) => {
           this.isDetailsModalActive = true
+          console.log(response)
           this.data_details = response.data[0]
         }).catch((error) => {
           this.isDetailsModalActive = false
