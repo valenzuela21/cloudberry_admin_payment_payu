@@ -82,8 +82,9 @@ export default {
             if (result.token === '' && result.res !== 'success') {
               this.alert_login = '<div style="    background: #e30c3b;\n' +
                 '    color: #fff;\n' +
-                '    padding: 10px;\n' +
+                '    padding: 8px;\n' +
                 '    text-align: center;\n' +
+                '    font-size: 14px;\n' +
                 '    margin-bottom: 10px;">Error de usuario y contraseña de esta cuenta</div>'
             } else {
               this.alert_login = ''
@@ -123,5 +124,6 @@ export default {
     margin: auto;
     text-align: center;
     display: block;
+    width: 270px;
   }
 </style>

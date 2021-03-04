@@ -1,10 +1,13 @@
 <template>
   <div v-if="status === false">
+    <h2 class="mb-3" ><b-icon
+      icon="file-document-edit">
+    </b-icon> Información Personal</h2>
     <form @submit.prevent="checkEditUser">
       <b-field label="Nombre Completo"
                :type="errors.name_type"
                :message="errors.name">
-        <b-input v-model="dataFormEdit.name_user"
+        <b-input v-model="data.name_user"
                  id="name"
                  name="name">
         </b-input>
@@ -13,7 +16,7 @@
                :type="errors.email_type"
                :message="errors.email">
         <b-input type="email"
-                 v-model="dataFormEdit.email"
+                 v-model="data.email"
                  id="email"
                  name="email">
         </b-input>
@@ -21,7 +24,7 @@
       <b-field label="Cedula"
                :type="errors.cedula_type"
                :message="errors.cedula">
-        <b-input v-model="dataFormEdit.cedula"
+        <b-input v-model="data.cedula"
                  id="cedula"
                  name="cedula">
         </b-input>
@@ -38,6 +41,7 @@
   </div>
   <div v-else>
     <img :src="'./static/save.png'" alt="save" class="image-save" />
+    <p class="txt-save">Cerrando Session, ¡Ingresa Nuevamente!.</p>
     <p class="txt-save">Se ha guardado correctamente los cambios.</p>
   </div>
 </template>
@@ -46,26 +50,21 @@
 import axios from 'axios'
 export default {
   name: 'ModalInfo',
-  props: ['formDataId'],
+  props: ['formData'],
   data () {
     return {
       errors: [],
       status: false,
-      id: this.formDataId,
-      dataFormEdit: [],
-      password: null
+      data: this.formData,
+      dataFormEdit: []
     }
-  },
-
-  created () {
-    this.consultEdit()
   },
 
   methods: {
     checkEditUser () {
       this.errors = []
       // eslint-disable-next-line camelcase
-      const {name_user, email, permision, cedula} = this.dataFormEdit
+      const {id_user, name_user, email, cedula} = this.formData
       // eslint-disable-next-line camelcase
       if (!name_user) {
         this.errors.name = 'Error: Ingresa el nombre completo'
@@ -75,66 +74,40 @@ export default {
         this.errors.email = 'Error: Ingresa el correo electrónico'
         this.errors.email_type = 'is-danger'
       }
-      if (!this.password) {
+      if (!cedula) {
         this.errors.cedula = 'Error: Ingresa el numero de identificación'
         this.errors.cedula_type = 'is-danger'
       }
-      if (!this.password) {
-        this.errors.password = 'Error: Ingresa la contraseña'
-        this.errors.password_type = 'is-danger'
-      }
-      if (!permision) {
-        this.errors.permision = 'Error: Ingresa el permiso'
-        this.errors.permision_type = 'is-danger'
-      }
       // eslint-disable-next-line camelcase
       if (name_user && email && cedula) {
-        let data = { 'name': name_user, 'email': email, 'cedula': cedula }
+        let data = {'id_user': id_user, 'user_name': name_user, 'email': email, 'cedula': cedula, 'option': 2}
 
         let token = this.$localStorage.get('token_cloudberry')
         let _token = JSON.parse(token)
 
         let config = {
           method: 'put',
-          url: `http://comunicacionescloudberry.com/payment/Api/user/${this.id}`,
+          url: 'http://comunicacionescloudberry.com/payment/Api/password_update',
           headers: {
-            'Authorization': `${_token.token}`,
-            'Content-Type': 'application/json'
+            'Authorization': `${_token.token}`
           },
           data: data
         }
 
         axios(config)
           .then((response) => {
-            console.log('Cambio de usuario exitoso!')
             this.status = true
+            setTimeout(() => {
+              this.$localStorage.remove('token_cloudberry')
+              this.$router.push('/')
+            }, 2000)
           })
           .catch((error) => {
             console.log(error)
           })
       }
-    },
-
-    consultEdit () {
-      let token = this.$localStorage.get('token_cloudberry')
-      let _token = JSON.parse(token)
-
-      let config = {
-        method: 'get',
-        url: `http://comunicacionescloudberry.com/payment/Api/users/${this.id}`,
-        headers: {
-          'Authorization': `${_token.token}`
-        },
-        data: ''
-      }
-
-      axios(config).then((response) => {
-        this.dataFormEdit = response.data[0]
-      })
-        .catch((error) => console.log(error))
     }
   }
-
 }
 </script>
 

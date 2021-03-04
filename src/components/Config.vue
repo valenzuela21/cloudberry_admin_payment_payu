@@ -4,7 +4,6 @@
     <div class="section">
         <Setting />
     </div>
-
   </div>
 </template>
 
