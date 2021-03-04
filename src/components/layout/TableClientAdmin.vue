@@ -1,5 +1,27 @@
 <template>
   <section>
+    <b-loading :is-full-page="true" v-model="isLoading" ></b-loading>
+    <div class="columns">
+      <div class="column">
+        <h2 class="title is-4"> <b-icon
+          icon="file-settings"
+          size="is-normal">
+        </b-icon>Facturas</h2>
+      </div>
+      <div class="column">
+        <div class="columns is-mobile">
+          <div class="column is-3-mobile  is-3-tablet is-2-desktop is-2-fullhd">
+            <img :src="'/static/icon-logo.png'" alt="icon-logo" class="image-logo-icon" />
+          </div>
+          <div class="column is-8">
+        <p class="is-size-7"> Id User: {{this.data_info.id_user}} <span class="tag ml-2">{{txtpermision}}</span></p>
+        <p class="is-size-7">Usuario: {{this.data_info.name_user}}</p>
+        <p class="is-size-7">Cedula: {{this.data_info.cedula}}</p>
+        <p class="is-size-7">Correo electrónico: {{this.data_info.email}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
     <b-table
       :paginated="isPaginated"
       :data="data"
@@ -102,6 +124,7 @@ export default {
     return {
       data: [],
       data_details: [],
+      data_info: [],
       isPaginated: true,
       isPaginationSimple: false,
       isPaginationRounded: false,
@@ -112,17 +135,32 @@ export default {
       currentPage: 1,
       perPage: 8,
       isDetailsModalActive: false,
-      token: null
+      token: null,
+      isLoading: false
     }
   },
   created () {
     let token = this.$localStorage.get('token_cloudberry')
     this.token = JSON.parse(token)
     this.consultInvoice()
+    this.consultUser()
   },
   methods: {
+    consultUser () {
+      this.isLoading = true
+      let id = this.idTable
+      const URL_DATA_USER = `http://comunicacionescloudberry.com/payment/Api/users/${id}`
+      axios.get(URL_DATA_USER, { headers: {
+        'Authorization': `${this.token.token}`
+      }}).then((response) => {
+        this.data_info = response.data[0]
+        this.isLoading = false
+      })
+        .catch((error) => console.log(error))
+    },
 
     consultInvoice () {
+      this.isLoading = true
       let id = this.idTable
       const URL_INVOICE_USER = `http://comunicacionescloudberry.com/payment/Api/invoices_user/${id}`
       axios.get(URL_INVOICE_USER, {
@@ -131,8 +169,8 @@ export default {
         }
       })
         .then((response) => {
-          console.log(response)
           this.data = response.data
+          this.isLoading = false
         })
         .catch((error) => {
           console.log(error)
@@ -140,7 +178,7 @@ export default {
     },
 
     consultInvoiceGeneral (idsale) {
-      console.log(idsale)
+      this.isLoading = true
       let config = {
         method: 'get',
         url: 'http://comunicacionescloudberry.com/payment/Api/registro_invoice/' + `${idsale}`,
@@ -153,6 +191,7 @@ export default {
           this.isDetailsModalActive = true
           console.log(response)
           this.data_details = response.data[0]
+          this.isLoading = false
         }).catch((error) => {
           this.isDetailsModalActive = false
           console.log(error)
@@ -179,6 +218,19 @@ export default {
 
       return formatter.format(value)
     }
+
+  },
+  computed: {
+
+    txtpermision: function () {
+      let permission
+      if (this.data_info.permision === '1') {
+        permission = 'Administrador'
+      } else {
+        permission = 'Usuario'
+      }
+      return permission
+    }
   }
 
 }
@@ -197,5 +249,15 @@ export default {
   padding: 5px 15px;
   color: #fff;
   border-radius: 4px;
+}
+.image-logo-icon{
+  width: 80px;
+  margin: auto;
+  background: #fff;
+  border-radius: 100px;
+  padding: 10px;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(181,181,181,1);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(181,181,181,1);
+  box-shadow: 0px 0px 5px 0px rgba(181,181,181,1);
 }
 </style>

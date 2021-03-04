@@ -7,6 +7,9 @@
               <h3 class="subtitle"> <b-icon
                 icon="account">
               </b-icon> Información Cuenta</h3>
+              <b-field>
+                <b-tag>{{txtpermision}}</b-tag>
+              </b-field>
               <p class="is-size-7"><strong>Nombre Usuario:</strong> {{userInfo.name_user}}</p>
               <p class="is-size-7"><strong>Correo electónico:</strong> {{userInfo.email}}</p>
               <p class="is-size-7"><strong>Usuario Creado:</strong> {{userInfo.created_at}}</p>
@@ -138,8 +141,18 @@ export default {
     }
   },
   computed: {
-    ...mapState(['userInfo'])
+    ...mapState(['userInfo']),
+    txtpermision: function () {
+      let permission
+      if (this.userInfo.permision === '1') {
+        permission = 'Administrador'
+      } else {
+        permission = 'Usuario'
+      }
+      return permission
+    }
   }
+
 }
 </script>
 

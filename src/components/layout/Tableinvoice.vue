@@ -1,6 +1,6 @@
 <template>
   <section>
-
+    <b-loading :is-full-page="true" v-model="isLoading" ></b-loading>
     <template>
       <b-input
         placeholder="Search..."
@@ -121,7 +121,8 @@ export default {
       sortIconSize: 'is-small',
       currentPage: 1,
       perPage: 12,
-      isDetailsModalActive: false
+      isDetailsModalActive: false,
+      isLoading: false
     }
   },
   created () {
@@ -132,6 +133,7 @@ export default {
   methods: {
 
     consultInvoice (_token) {
+      this.isLoading = true
       const URL_INVOICE = 'http://comunicacionescloudberry.com/payment/Api/registro_invoice/'
       axios.get(URL_INVOICE, {
         headers: {
@@ -140,6 +142,7 @@ export default {
       })
         .then((response) => {
           this.data = response.data
+          this.isLoading = false
         })
         .catch((error) => {
           console.log(error)
@@ -147,6 +150,7 @@ export default {
     },
 
     consultInvoiceGeneral (idsale) {
+      this.isLoading = true
       let _token = this.$localStorage.get('token_cloudberry')
       _token = JSON.parse(_token)
       let config = {
@@ -160,6 +164,7 @@ export default {
         .then((response) => {
           this.isDetailsModalActive = true
           this.data_details = response.data[0]
+          this.isLoading = false
         }).catch((error) => {
           this.isDetailsModalActive = false
           console.log(error)

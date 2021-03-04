@@ -1,5 +1,6 @@
 <template>
   <div>
+    <b-loading :is-full-page="true" v-model="isLoading" ></b-loading>
     <section class="section">
       <template>
         <b-input
@@ -92,7 +93,8 @@ export default {
       isEditModalActive: false,
       idEdit: 0,
       token: null,
-      enableModal: false
+      enableModal: false,
+      isLoading: false
     }
   },
   mounted () {
@@ -106,6 +108,7 @@ export default {
       this.consultUser()
     },
     consultUser () {
+      this.isLoading = true
       const URL_USERS_REGISTER = 'http://comunicacionescloudberry.com/payment/Api/users/'
       axios.get(URL_USERS_REGISTER, {
         headers: {
@@ -114,6 +117,7 @@ export default {
       }).then((response) => {
         console.log('Consulta satisfactoria!')
         this.data = response.data
+        this.isLoading = false
       }).catch((error) => {
         console.log(error)
       })
