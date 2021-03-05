@@ -31,7 +31,7 @@ export default {
 <style lang="scss">
   .label{
     color: #888!important;
-    font-size: 14px!important;
+    font-size: 12px!important;
   }
  html{
     background: #e1e1e1!important;

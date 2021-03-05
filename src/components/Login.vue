@@ -36,7 +36,6 @@
       </form>
       <p class="has-text-centered is-size-7 mt-3">Has perdido la contraseña, <router-link to="/recovery" class="is-size-7" > recupera la cuenta. </router-link></p>
     </div>
-
   </div>
 </template>
 
