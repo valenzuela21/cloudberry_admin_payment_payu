@@ -1,4 +1,4 @@
-# admin-payment-desingpro
+# Admin Payment Desingpro
 
 > Admin Payment Cloudberry
 
