@@ -18,7 +18,7 @@
         {{ props.row.first_name }}
     </b-table-column>
     <b-table-column field="service" label="Total" v-slot="props">
-      <strong> {{ formatCurrency("es-CO", "COP", 0, props.row.total)}}</strong>
+      <strong style="font-size: 18px;"> {{ formatCurrency("es-CO", "COP", 0, props.row.total)}}</strong>
     </b-table-column>
 
   </b-table>

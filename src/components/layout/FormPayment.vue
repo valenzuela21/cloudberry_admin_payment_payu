@@ -219,7 +219,15 @@ export default {
         }
       })
       if (result) {
-        this.plansService = result.data
+        let resp = []
+        let data = result.data
+        data.forEach((value, index) => {
+          console.log(value)
+          if (value.plan === 'Yes') {
+            resp.push(value)
+          }
+        })
+        this.plansService = resp
       }
     }
   },
