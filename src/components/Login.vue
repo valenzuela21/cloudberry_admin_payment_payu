@@ -12,7 +12,7 @@
                  :type="{ 'is-danger': hasError[0] === 'name' || hasError[0] === 'email'  ? true : false}"
                  :message="[{ 'Ingresa el usuario': hasError[0] === 'name' ? true : false },
                             { 'Error: Tiene que ser correo electronico': hasError[0] === 'email' ? true : false }]">
-          <b-input value=""
+          <b-input placeholder="Ingresa el correo electrónico"
                    v-model="name"
                    name="name"
                    id="name" ></b-input>
@@ -21,7 +21,7 @@
         <b-field label="Contraseña"
                  :type="{ 'is-danger': hasError[0] === 'password' ? true : false  }"
                  :message="{ 'Ingresa la contraseña': hasError[0] === 'password' ? true : false }">
-          <b-input value=""
+          <b-input placeholder="************"
                    v-model="password"
                    name="password"
                    id="password"
@@ -30,14 +30,13 @@
       </section>
       <section>
         <div class="column">
-          <p class="is-size-7 has-text-centered">Has olvidado la
-          contraseña <a href="">Ingresa Aqui</a></p></div>
-        <div class="column">
           <button class="button is-danger is-center is-normal margin-auto">Ingresa Cuenta</button>
         </div>
       </section>
       </form>
+      <p class="has-text-centered is-size-7 mt-3">Has perdido la contraseña, <router-link to="/recovery" class="is-size-7" > recupera la cuenta. </router-link></p>
     </div>
+
   </div>
 </template>
 

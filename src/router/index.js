@@ -5,7 +5,7 @@ import Inicio from '../components/Inicio'
 import Users from '../components/Users'
 import Config from '../components/Config'
 import InvoiceUser from '../components/InvoiceUser'
-
+import Recovery from '../components/Recovery'
 Vue.use(Router)
 
 export default new Router({
@@ -30,6 +30,11 @@ export default new Router({
       path: '/users',
       name: 'users',
       component: Users
+    },
+    {
+      path: '/recovery',
+      name: 'recovery',
+      component: Recovery
     },
     {
       path: '/invoice_user/:id',
