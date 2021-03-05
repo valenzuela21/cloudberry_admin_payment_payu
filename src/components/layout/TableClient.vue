@@ -57,7 +57,7 @@
       </b-table-column>
     </b-table>
 
-    <b-modal :width="640" v-model="isDetailsModalActive">
+    <b-modal :width="790" v-model="isDetailsModalActive">
       <div class="card">
         <div class="card-content">
           <div class="columns">
@@ -135,7 +135,6 @@ export default {
         }
       })
         .then((response) => {
-          console.log(response)
           this.data = response.data
           this.isLoading = false
         })

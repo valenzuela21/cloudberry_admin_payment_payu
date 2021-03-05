@@ -14,7 +14,7 @@ export default {
   components: {
     Footer
   },
-  mounted () {
+  created () {
     let token = this.$localStorage.get('token_cloudberry')
     token = JSON.parse(token)
     if (token.token) {
