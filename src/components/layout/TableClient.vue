@@ -85,6 +85,7 @@
               <p class="is-size-7"><b>Producto: </b> {{data_details.product}} </p>
               <p class="is-size-7"><b>Dominio: </b>  {{data_details.domain}}</p>
               <p class="is-size-7"><b>Certificado: </b>{{data_details.certificado}} </p>
+              <p class="is-size-7"><b>Meses: </b>{{data_details.month}} </p>
               <p class="is-size-7"> <span class="price-total">Total: {{formatterPeso(data_details.total)}}</span> </p>
             </div>
           </div>

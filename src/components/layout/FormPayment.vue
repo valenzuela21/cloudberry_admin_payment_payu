@@ -1,8 +1,9 @@
 <template>
   <div>
-    <form method="post" @submit="checkForm"
+    <form method="post"
+          @submit="checkForm"
           action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
-          ref="form_payment"
+          ref="form"
     >
       <input name="merchantId"    type="hidden"  :value="payu.merchanid" >
       <input name="accountId"     type="hidden"  :value="payu.accountid" >
@@ -181,9 +182,41 @@ export default {
       const {name, cedula, email, phone, service, month} = this.formEdit
 
       if (name && cedula && email && phone && service && month) {
-        return true
+        let data = JSON.stringify({
+          'id_user': this.userInfo.id_user,
+          'id_sale': this.payu.referencecode,
+          'cedula': cedula,
+          'name': name,
+          'typedocument': '',
+          'mobil': phone,
+          'email': email,
+          'business': '',
+          'type': '',
+          'document': '',
+          'domain': 'No',
+          'certificado': 'No',
+          'total': this.total,
+          'product': service.service,
+          'plan': 'No',
+          'month': month,
+          'estado': 'Transacción Proceso'
+        })
+        let config = {
+          method: 'post',
+          url: 'http://comunicacionescloudberry.com/payment/Api/registro_invoice',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          data: data
+        }
+        axios(config)
+          .then((response) => {
+            this.$refs.form.submit()
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
       }
-
       if (!name) {
         this.errors.name = 'Ingrese el nombre completo'
         this.errors.name_type = 'is-danger'
@@ -222,7 +255,6 @@ export default {
         let resp = []
         let data = result.data
         data.forEach((value, index) => {
-          console.log(value)
           if (value.plan === 'Yes') {
             resp.push(value)
           }
