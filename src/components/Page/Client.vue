@@ -8,8 +8,8 @@
               <div class="column is-4-mobile  is-2-desktop mt-1"><img :src="'./static/icon-logo.png'" class="icon-image" alt="icon"/></div>
               <div class="column is-four-fifths mt-1">
                 <h1>{{userInfo.name_user}}</h1>
-                <p class="is-size-7">Correo: {{userInfo.email}}</p>
-                <p class="is-size-7">Identificación: {{userInfo.cedula}}</p>
+                <p class="is-size-7"><strong>Correo electrónico:</strong> {{userInfo.email}}</p>
+                <p class="is-size-7"><strong>Identificación:</strong> {{userInfo.cedula}}</p>
               </div>
             </div>
           </div>

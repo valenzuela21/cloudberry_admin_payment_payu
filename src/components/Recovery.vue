@@ -45,12 +45,16 @@ export default {
         this.error.email = 'Ingresa el correo electrónico'
         this.error.email_type = 'is-danger'
       } else {
-        alert('Hola 21')
         const URL_RECOVERY_PASSWORD = 'http://comunicacionescloudberry.com/payment/Api/recovery_account'
         let data = {'email': this.email}
         axios.post(URL_RECOVERY_PASSWORD, data)
-          .then((resp) => console.log(resp))
-          .catch((error) => console.log(error))
+          .then((resp) => {
+            if (resp.data.type !== 'Error') {
+              this.msgError = '<div class="alert-success-email-recovery">Se envio nuevos datos a este correo electrónico.</div>'
+            } else {
+              this.msgError = '<div class="alert-error-email-recovery">Este correo electrónico no existe.</div>'
+            }
+          }).catch((error) => console.log(error))
       }
     }
   }

@@ -20,13 +20,13 @@ export default {
     token = JSON.parse(token)
 
     /** Validate Token **/
-    if (this.userInfo.length > 0) {
-      if (token.token) {
-        if (this.$route.path !== '/admin') {
+    if (token.token) {
+      if (this.$route.path !== '/admin') {
+        if (this.userInfo.length < 0) {
+          this.$router.push('/')
+        } else {
           this.$router.push('/admin')
         }
-      } else {
-        this.$router.push('/')
       }
     } else {
       this.$router.push('/')
@@ -64,6 +64,18 @@ export default {
   }
   a.dropdown-item.is-active, .dropdown .dropdown-menu .has-link a.is-active, button.dropdown-item.is-active{
     background: #fff!important;
+  }
+  .alert-error-email-recovery{
+    background: #ff315a;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+  }
+  .alert-success-email-recovery{
+    background: #1bb075;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
   }
   @media screen and (max-width: 1125px) {
     .paper-container{
