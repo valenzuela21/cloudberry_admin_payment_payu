@@ -9,6 +9,7 @@
 
 <script>
 import Footer from './components/layout/Footer'
+import {mapState} from 'vuex'
 export default {
   name: 'App',
   components: {
@@ -17,13 +18,22 @@ export default {
   created () {
     let token = this.$localStorage.get('token_cloudberry')
     token = JSON.parse(token)
-    if (token.token) {
-      if (this.$route.path !== '/admin') {
-        this.$router.push('/admin')
+
+    /** Validate Token **/
+    if (this.userInfo.length > 0) {
+      if (token.token) {
+        if (this.$route.path !== '/admin') {
+          this.$router.push('/admin')
+        }
+      } else {
+        this.$router.push('/')
       }
     } else {
       this.$router.push('/')
     }
+  },
+  computed: {
+    ...mapState(['userInfo'])
   }
 }
 </script>

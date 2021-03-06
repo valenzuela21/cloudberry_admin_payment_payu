@@ -115,9 +115,13 @@ export default {
           'Authorization': `${this.token.token}`
         }
       }).then((response) => {
-        console.log('Consulta satisfactoria!')
-        this.data = response.data
-        this.isLoading = false
+        if (response.data.resp === false && response.data.status === 401) {
+          this.$localStorage.remove('token_cloudberry')
+          this.$router.push('/')
+        } else {
+          this.data = response.data
+          this.isLoading = false
+        }
       }).catch((error) => {
         console.log(error)
       })

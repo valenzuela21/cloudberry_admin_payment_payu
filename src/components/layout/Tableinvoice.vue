@@ -1,13 +1,7 @@
 <template>
   <section>
     <b-loading :is-full-page="true" v-model="isLoading" ></b-loading>
-    <template>
-      <b-input
-        placeholder="Search..."
-        icon="magnify"
-        class="mb-4"/>
-    </template>
-
+    <Search />
     <b-table
       :paginated="isPaginated"
       :data="data"
@@ -47,6 +41,12 @@
         <span class="is-size-7"> {{ props.row.product }}</span>
       </b-table-column>
 
+      <b-table-column field="type_invoice" label="Tipo Factura" sortable v-slot="props">
+         <span class="tag">
+        {{ props.row.plan === 'Yes'? 'Inicial' : 'Mensual' }}
+         </span>
+      </b-table-column>
+
       <b-table-column field="estado" label="Estado"  width="100" v-slot="props">
          <span class="tag" :class="type(props.row.estado)" >
         {{ props.row.estado }}
@@ -58,7 +58,6 @@
         {{ props.row.created_at }}
          </span>
       </b-table-column>
-
       <b-table-column field="opcions" label="Opciones" v-slot="props">
           <b-button
             icon-right="file-document-multiple"
@@ -107,8 +106,12 @@
 
 <script>
 import axios from 'axios'
+import Search from './aditional/Search'
 export default {
   name: 'TableInvoice',
+  components: {
+    Search
+  },
   data () {
     return {
       data: [],
@@ -123,22 +126,23 @@ export default {
       currentPage: 1,
       perPage: 12,
       isDetailsModalActive: false,
-      isLoading: false
+      isLoading: false,
+      token: ''
     }
   },
   created () {
     let token = this.$localStorage.get('token_cloudberry')
-    token = JSON.parse(token)
-    this.consultInvoice(token)
+    this.token = JSON.parse(token)
+    this.consultInvoice()
   },
   methods: {
 
-    consultInvoice (_token) {
+    consultInvoice () {
       this.isLoading = true
       const URL_INVOICE = 'http://comunicacionescloudberry.com/payment/Api/registro_invoice/'
       axios.get(URL_INVOICE, {
         headers: {
-          'Authorization': `${_token.token}`
+          'Authorization': `${this.token.token}`
         }
       })
         .then((response) => {
@@ -152,20 +156,23 @@ export default {
 
     consultInvoiceGeneral (idsale) {
       this.isLoading = true
-      let _token = this.$localStorage.get('token_cloudberry')
-      _token = JSON.parse(_token)
       let config = {
         method: 'get',
         url: 'http://comunicacionescloudberry.com/payment/Api/registro_invoice/' + `${idsale}`,
         headers: {
-          'Authorization': `${_token.token}`
+          'Authorization': `${this.token.token}`
         }
       }
       axios(config)
         .then((response) => {
           this.isDetailsModalActive = true
-          this.data_details = response.data[0]
-          this.isLoading = false
+          if (response.data.resp === false && response.data.status === 401) {
+            this.$localStorage.remove('token_cloudberry')
+            this.$router.push('/')
+          } else {
+            this.data_details = response.data[0]
+            this.isLoading = false
+          }
         }).catch((error) => {
           this.isDetailsModalActive = false
           console.log(error)
@@ -192,7 +199,9 @@ export default {
 
       return formatter.format(value)
     }
+
   }
+
 }
 </script>
 

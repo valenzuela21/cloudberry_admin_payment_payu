@@ -19,7 +19,11 @@ export default new Vuex.Store({
       let _token = JSON.parse(token)
       const URL_PROFILE = `http://comunicacionescloudberry.com/payment/Api/users/${_token.id}`
       const datauser = await axios.get(URL_PROFILE, {headers: { 'Authorization': `${_token.token}` }})
-      commit('INFO_USER', datauser.data[0])
+      if (datauser.resp === false && datauser.status === 401) {
+        localStorage.setItem('token_cloudberry', '')
+      } else {
+        commit('INFO_USER', datauser.data[0])
+      }
     }
   }
 })

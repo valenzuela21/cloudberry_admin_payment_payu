@@ -11,13 +11,14 @@
       <div class="column">
         <div class="columns is-mobile">
           <div class="column is-3-mobile  is-3-tablet is-2-desktop is-2-fullhd">
-            <img :src="'/static/icon-logo.png'" alt="icon-logo" class="image-logo-icon" />
+            <img :src="'/static/icon-logo.png'" alt="icon-logo" class="image-logo-icon mt-5" />
           </div>
           <div class="column is-8">
-        <p class="is-size-7"> Id User: {{this.data_info.id_user}} <span class="tag ml-2">{{txtpermision}}</span></p>
-        <p class="is-size-7">Usuario: {{this.data_info.name_user}}</p>
-        <p class="is-size-7">Cedula: {{this.data_info.cedula}}</p>
-        <p class="is-size-7">Correo electrónico: {{this.data_info.email}}</p>
+            <p class="tag mb-2">{{txtpermision}}</p>
+            <p class="is-size-7"> <strong>Id User:</strong> {{this.data_info.id_user}} </p>
+            <p class="is-size-7"> <strong>Usuario:</strong> {{this.data_info.name_user}}</p>
+            <p class="is-size-7"> <strong>Cédula:</strong> {{this.data_info.cedula}}</p>
+            <p class="is-size-7"> <strong>Correo electrónico:</strong> {{this.data_info.email}}</p>
           </div>
         </div>
       </div>
@@ -190,7 +191,6 @@ export default {
       axios(config)
         .then((response) => {
           this.isDetailsModalActive = true
-          console.log(response)
           this.data_details = response.data[0]
           this.isLoading = false
         }).catch((error) => {
