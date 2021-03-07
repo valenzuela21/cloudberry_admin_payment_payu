@@ -43,7 +43,7 @@ export default new Router({
       component: InvoiceUser
     },
     {
-      path: '/print',
+      path: '/print/',
       name: 'print',
       component: Print
     },

@@ -100,7 +100,12 @@
               <p class="is-size-7"><b>Número Pedido: </b> {{data_details.id_sale}} </p>
               <p class="is-size-7"><b>Fecha:</b> {{data_details.updated_at}} </p>
               <p class="is-size-7"><b>Producto: </b> {{data_details.product}} </p>
-              <p class="is-size-7"><b>Dominio: </b> {{data_details.domain}}</p>
+              <div class="is-size-7"><b>Dominio: </b> {{data_details.domain}}
+                <div>
+                  <span v-if="data_details.domain === 'Si'"> <strong class="tag-span">Transferencia Dominio</strong></span>
+                  <span v-else><strong  class="tag-span-domain">Adquirir Nuevo Dominio</strong></span>
+                </div>
+              </div>
               <p class="is-size-7"><b>Certificado: </b>{{data_details.certificado}} </p>
               <p class="is-size-7"><b>Meses: </b>{{data_details.month}} </p>
               <p class="is-size-7"><span class="price-total">Total: {{formatterPeso(data_details.total)}}</span></p>
@@ -231,6 +236,22 @@ export default {
   }
   .options {
     color: #6f6f6f!important;
+  }
+  .tag-span{
+    background: #628b18;
+    padding: 3px 8px;
+    color: #fff;
+    font-weight: 400;
+    border-radius: 4px;
+    font-size: 10px;
+  }
+  .tag-span-domain{
+    background: #7957d5;
+    padding: 3px 8px;
+    color: #fff;
+    font-weight: 400;
+    border-radius: 4px;
+    font-size: 10px;
   }
 
 </style>
