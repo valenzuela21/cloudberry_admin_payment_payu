@@ -1,0 +1,87 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #e7e9ed;
+  color: #535b61;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: normal;
+}
+
+hr{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0,0,0,.1);
+}
+
+/* Style the header */
+.header {
+  background-color: #f1f1f1;
+  padding: 20px;
+  text-align: center;
+}
+
+.column {
+  float: left;
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.invoice-container{
+  margin: 15px auto;
+  padding: 70px;
+  max-width: 850px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -o-border-radius: 6px;
+  border-radius: 6px;
+}
+
+.text-align-right{
+  text-align: right;
+}
+.text-align-center{
+  text-align: center;
+}
+
+.logo-factura{
+  width: 200px;
+}
+
+ul{
+  padding: 0px;
+  list-style: none;
+}
+table {
+  font-family: "Poppins", sans-serif;
+  width: 100%;
+  margin-top: 30px;
+  border-collapse: collapse;
+  border-radius: 4em;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+td, th {
+  border-top: 1px solid #e3e3e5;
+  text-align: left;
+  padding: 8px;
+  font-weight: normal;
+}
+
+tr:nth-child(even) {
+  background-color: #f8f8fa;
+}
+

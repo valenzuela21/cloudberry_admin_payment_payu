@@ -1,7 +1,7 @@
 <template>
   <section>
-    <b-loading :is-full-page="true" v-model="isLoading" ></b-loading>
-    <Search />
+    <b-loading :is-full-page="true" v-model="isLoading"></b-loading>
+    <Search/>
     <b-table
       :paginated="isPaginated"
       :data="data"
@@ -20,12 +20,12 @@
       </b-table-column>
 
       <b-table-column field="numero-cedula" label="Número Cedula" width="130" v-slot="props">
-          {{ props.row.cedula }}
+        {{ props.row.cedula }}
       </b-table-column>
 
       <b-table-column field="nombre-completo" label="Nombre Completo" v-slot="props">
 
-          <span class="is-size-7"> {{ props.row.name }}</span>
+        <span class="is-size-7"> {{ props.row.name }}</span>
 
       </b-table-column>
 
@@ -47,8 +47,8 @@
          </span>
       </b-table-column>
 
-      <b-table-column field="estado" label="Estado"  width="100" v-slot="props">
-         <span class="tag" :class="type(props.row.estado)" >
+      <b-table-column field="estado" label="Estado" width="100" v-slot="props">
+         <span class="tag" :class="type(props.row.estado)">
         {{ props.row.estado }}
          </span>
       </b-table-column>
@@ -59,46 +59,54 @@
          </span>
       </b-table-column>
       <b-table-column field="opcions" label="Opciones" v-slot="props">
-          <b-button
-            icon-right="file-document-multiple"
-            @click="consultInvoiceGeneral( props.row.id_sale )" >
-          </b-button>
+        <b-button
+          class="options"
+          icon-right="file-document-multiple"
+          @click="consultInvoiceGeneral( props.row.id_sale )">
+        </b-button>
+        <b-button
+          tag="router-link"
+          class="options"
+          :to="{  path: '/print', query: { sale: props.row.id_sale }   }"
+          icon-right="printer">
+        </b-button>
       </b-table-column>
     </b-table>
 
     <b-modal :width="640" v-model="isDetailsModalActive">
       <div class="card">
-      <div class="card-content">
-        <div class="columns">
-          <div class="column">
+        <div class="card-content">
+          <div class="columns">
+            <div class="column">
             <span><b-icon
               icon="account"
               class="icon-information">
             </b-icon>Información</span>
-            <hr/>
-            <p class="is-size-7"><b>Nombre: </b> {{data_details.name}} </p>
-            <p class="is-size-7"><b>Mobil: </b>{{data_details.mobil}} </p>
-            <p class="is-size-7"><b>Correo electrónico: </b>{{data_details.email}} </p>
-            <p class="is-size-7"><b>Empresa: </b>{{data_details.business}} </p>
-            <p class="is-size-7"><b>Identificación: </b> {{data_details.type_document}} {{data_details.cedula}} </p>
-            <p class="is-size-7"><b>Url Documento: </b> <a :href="data_details.document" target="_blank">{{data_details.document}}</a> </p>
-          </div>
-          <div class="column">
+              <hr/>
+              <p class="is-size-7"><b>Nombre: </b> {{data_details.name}} </p>
+              <p class="is-size-7"><b>Mobil: </b>{{data_details.mobil}} </p>
+              <p class="is-size-7"><b>Correo electrónico: </b>{{data_details.email}} </p>
+              <p class="is-size-7"><b>Empresa: </b>{{data_details.business}} </p>
+              <p class="is-size-7"><b>Identificación: </b> {{data_details.type_document}} {{data_details.cedula}} </p>
+              <p class="is-size-7"><b>Url Documento: </b> <a :href="data_details.document" target="_blank">{{data_details.document}}</a>
+              </p>
+            </div>
+            <div class="column">
            <span><b-icon
-                  icon="shopping"
-                  class="icon-information">
+             icon="shopping"
+             class="icon-information">
             </b-icon>Pedido</span>
-            <hr>
-            <p class="is-size-7"><b>Número Pedido: </b> {{data_details.id_sale}} </p>
-            <p class="is-size-7"><b>Fecha:</b>  {{data_details.updated_at}} </p>
-            <p class="is-size-7"><b>Producto: </b> {{data_details.product}} </p>
-            <p class="is-size-7"><b>Dominio: </b>  {{data_details.domain}}</p>
-            <p class="is-size-7"><b>Certificado: </b>{{data_details.certificado}} </p>
-            <p class="is-size-7"><b>Meses: </b>{{data_details.month}} </p>
-            <p class="is-size-7"> <span class="price-total">Total: {{formatterPeso(data_details.total)}}</span> </p>
+              <hr>
+              <p class="is-size-7"><b>Número Pedido: </b> {{data_details.id_sale}} </p>
+              <p class="is-size-7"><b>Fecha:</b> {{data_details.updated_at}} </p>
+              <p class="is-size-7"><b>Producto: </b> {{data_details.product}} </p>
+              <p class="is-size-7"><b>Dominio: </b> {{data_details.domain}}</p>
+              <p class="is-size-7"><b>Certificado: </b>{{data_details.certificado}} </p>
+              <p class="is-size-7"><b>Meses: </b>{{data_details.month}} </p>
+              <p class="is-size-7"><span class="price-total">Total: {{formatterPeso(data_details.total)}}</span></p>
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </b-modal>
   </section>
@@ -107,6 +115,7 @@
 <script>
 import axios from 'axios'
 import Search from './aditional/Search'
+
 export default {
   name: 'TableInvoice',
   components: {
@@ -206,18 +215,22 @@ export default {
 </script>
 
 <style scoped>
-  .icon-information{
+  .icon-information {
     font-size: 22px;
     padding: 12px;
     color: #343434
   }
-  .price-total{
+
+  .price-total {
     float: right;
     font-size: 20px;
     background: #d21139;
     padding: 5px 15px;
     color: #fff;
     border-radius: 4px;
+  }
+  .options {
+    color: #6f6f6f!important;
   }
 
 </style>

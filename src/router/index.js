@@ -6,6 +6,7 @@ import Users from '../components/Users'
 import Config from '../components/Config'
 import InvoiceUser from '../components/InvoiceUser'
 import Recovery from '../components/Recovery'
+import Print from '../components/layout/aditional/Print'
 Vue.use(Router)
 
 export default new Router({
@@ -40,6 +41,11 @@ export default new Router({
       path: '/invoice_user/:id',
       name: 'invoice_user',
       component: InvoiceUser
+    },
+    {
+      path: '/print',
+      name: 'print',
+      component: Print
     },
     {
       path: '*',

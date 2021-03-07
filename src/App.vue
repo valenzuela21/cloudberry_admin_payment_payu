@@ -20,13 +20,9 @@ export default {
     token = JSON.parse(token)
 
     /** Validate Token **/
-    if (token.token) {
+    if (token.token || token.token === '') {
       if (this.$route.path !== '/admin') {
-        if (this.userInfo.length < 0) {
-          this.$router.push('/')
-        } else {
-          this.$router.push('/admin')
-        }
+        this.$router.push('/admin')
       }
     } else {
       this.$router.push('/')
@@ -77,6 +73,7 @@ export default {
     text-align: center;
     padding: 10px;
   }
+
   @media screen and (max-width: 1125px) {
     .paper-container{
       height: 1050px;

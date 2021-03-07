@@ -9,10 +9,22 @@ import store from './store.js'
 
 import VueLocalStorage from 'vue-localstorage'
 import VueClipboards from 'vue-clipboards'
+import VueHtmlToPaper from 'vue-html-to-paper'
+
+const options = {
+  'name': '_blank',
+  'specs': [
+    'fullscreen=yes',
+    'titlebar=yes',
+    'scrollbars=yes'
+  ],
+  'styles': ['http://comunicacionescloudberry.com/admin/static/css/styleprint.css']
+}
 
 Vue.use(Buefy)
 Vue.use(VueLocalStorage)
 Vue.use(VueClipboards)
+Vue.use(VueHtmlToPaper, options)
 
 Vue.config.productionTip = false
 
