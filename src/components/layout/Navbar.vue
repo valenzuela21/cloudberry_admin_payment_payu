@@ -4,7 +4,7 @@
     <template #brand>
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
         <router-link to="/admin"><img
-          :src="'/static/logo.png'"
+          :src="require('@/../static/logo.png')"
           alt="cloudbery-creative"
         ></router-link>
       </b-navbar-item>

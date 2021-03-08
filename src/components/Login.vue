@@ -1,7 +1,7 @@
 <template>
   <div class="columns p-5 bg-login with-login">
     <div class="column card is-half is-offset-one-quarter mt-6">
-      <img class="logo-login" :src="'./static/logo.png'">
+      <img class="logo-login" :src="require('@/../static/logo.png')">
       <div v-html="alert_login" ></div>
       <form
         id="app"

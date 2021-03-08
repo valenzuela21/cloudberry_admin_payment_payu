@@ -34,7 +34,7 @@
       <div class="column">
         <div class="columns is-mobile">
           <div class="column is-3-mobile  is-3-tablet is-2-desktop is-2-fullhd">
-            <img :src="'/static/icon-logo.png'" alt="icon-logo" class="image-logo-icon mt-5"/>
+            <img :src="require('@/../static/icon-logo.png')" alt="icon-logo" class="image-logo-icon mt-5"/>
           </div>
           <div class="column is-8">
             <p class="tag mb-2">{{txtpermision}}</p>

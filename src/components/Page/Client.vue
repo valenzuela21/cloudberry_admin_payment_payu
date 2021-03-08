@@ -5,7 +5,7 @@
         <div class="card m-2">
           <div class="card-content">
             <div class="columns is-mobile">
-              <div class="column is-4-mobile  is-2-desktop mt-1"><img :src="'./static/icon-logo.png'" class="icon-image" alt="icon"/></div>
+              <div class="column is-4-mobile  is-2-desktop mt-1"><img :src="require('@/../static/icon-logo.png')" class="icon-image" alt="icon"/></div>
               <div class="column is-four-fifths mt-1">
                 <h1>{{userInfo.name_user}}</h1>
                 <p class="is-size-7"><strong>Correo electrónico:</strong> {{userInfo.email}}</p>
