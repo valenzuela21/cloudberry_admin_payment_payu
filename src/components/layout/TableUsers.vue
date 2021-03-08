@@ -45,7 +45,7 @@
         <b-table-column field="updated_at" label="Fecha Actualización" width="40" sortable  v-slot="props">
           <span class="tag">{{ props.row.updated_at }}</span>
         </b-table-column>
-        <b-table-column field="options" label="Opciones" width="40"  v-slot="props">
+        <b-table-column field="options" label="Opciones" width="120"   v-slot="props">
           <div class="buttons" v-if="props.row.permision === '0'">
             <b-button type="is-primary"
                       icon-left="lead-pencil"

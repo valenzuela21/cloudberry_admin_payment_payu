@@ -74,6 +74,12 @@ export default {
     padding: 10px;
   }
 
+  .input-url-copy .input{
+    background: #efefef!important;
+    color: #828282!important;
+    border-radius: 4px!important;
+  }
+
   @media screen and (max-width: 1125px) {
     .paper-container{
       height: 1050px;

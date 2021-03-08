@@ -1,28 +1,52 @@
 <template>
   <section>
-    <b-loading :is-full-page="true" v-model="isLoading" ></b-loading>
+    <b-loading :is-full-page="true" v-model="isLoading"></b-loading>
     <div class="columns">
       <div class="column">
-        <h2 class="title is-4"> <b-icon
-          icon="file-settings"
-          size="is-normal">
-        </b-icon>Facturas</h2>
+        <div class="columns">
+          <div class="column is-8">
+            <h2 class="title is-4">
+              <b-icon
+                icon="file-settings"
+                size="is-normal">
+              </b-icon>
+              Facturas
+            </h2>
+            <b-field style="margin-top: 50px;" label="Link de pago">
+              <b-input placeholder="Link Payment"
+                       class="input-url-copy"
+                       :value="urlCheckout"
+                       id="myInput"
+                       size="is-small"
+                       expanded
+              >
+              </b-input>
+              <b-button
+                        @icon-click="copyLink"
+                        @click="copyLink"
+                        size="is-small"
+                        class="button-copy"
+                        icon-right="content-copy" />
+            </b-field>
+          </div>
+        </div>
       </div>
       <div class="column">
         <div class="columns is-mobile">
           <div class="column is-3-mobile  is-3-tablet is-2-desktop is-2-fullhd">
-            <img :src="'/static/icon-logo.png'" alt="icon-logo" class="image-logo-icon mt-5" />
+            <img :src="'/static/icon-logo.png'" alt="icon-logo" class="image-logo-icon mt-5"/>
           </div>
           <div class="column is-8">
             <p class="tag mb-2">{{txtpermision}}</p>
-            <p class="is-size-7"> <strong>Id User:</strong> {{this.data_info.id_user}} </p>
-            <p class="is-size-7"> <strong>Usuario:</strong> {{this.data_info.name_user}}</p>
-            <p class="is-size-7"> <strong>Cédula:</strong> {{this.data_info.cedula}}</p>
-            <p class="is-size-7"> <strong>Correo electrónico:</strong> {{this.data_info.email}}</p>
+            <p class="is-size-7"><strong>Id User:</strong> {{this.data_info.id_user}} </p>
+            <p class="is-size-7"><strong>Usuario:</strong> {{this.data_info.name_user}}</p>
+            <p class="is-size-7"><strong>Cédula:</strong> {{this.data_info.cedula}}</p>
+            <p class="is-size-7"><strong>Correo electrónico:</strong> {{this.data_info.email}}</p>
           </div>
         </div>
       </div>
     </div>
+
     <b-table
       :paginated="isPaginated"
       :data="data"
@@ -57,8 +81,8 @@
         <span class="is-size-7"> {{ props.row.product }}</span>
       </b-table-column>
 
-      <b-table-column field="Estado" label="Estado"  width="100" v-slot="props">
-         <span class="tag" :class="type(props.row.estado)" >
+      <b-table-column field="Estado" label="Estado" width="100" v-slot="props">
+         <span class="tag" :class="type(props.row.estado)">
         {{ props.row.estado }}
          </span>
       </b-table-column>
@@ -69,12 +93,12 @@
          </span>
       </b-table-column>
 
-      <b-table-column field="Opciones" label="Opciones" v-slot="props">
+      <b-table-column width="140" field="Opciones" label="Opciones" v-slot="props">
 
         <b-button
           icon-right="file-document-multiple"
           class="options"
-          @click="consultInvoiceGeneral( props.row.id_sale )" >
+          @click="consultInvoiceGeneral( props.row.id_sale )">
         </b-button>
 
         <b-button
@@ -102,7 +126,8 @@
               <p class="is-size-7"><b>Correo electrónico: </b>{{data_details.email}} </p>
               <p class="is-size-7"><b>Empresa: </b>{{data_details.business}} </p>
               <p class="is-size-7"><b>Identificación: </b> {{data_details.type_document}} {{data_details.cedula}} </p>
-              <p class="is-size-7"><b>Url Documento: </b> <a :href="data_details.document" target="_blank">{{data_details.document}}</a> </p>
+              <p class="is-size-7"><b>Url Documento: </b> <a :href="data_details.document" target="_blank">{{data_details.document}}</a>
+              </p>
             </div>
             <div class="column">
            <span><b-icon
@@ -111,18 +136,19 @@
             </b-icon>Pedido</span>
               <hr>
               <p class="is-size-7"><b>Número Pedido: </b> {{data_details.id_sale}} </p>
-              <p class="is-size-7"><b>Fecha: </b>  {{data_details.updated_at}} </p>
+              <p class="is-size-7"><b>Fecha: </b> {{data_details.updated_at}} </p>
               <p class="is-size-7"><b>Producto: </b> {{data_details.product}} </p>
               <div class="is-size-7"><b>Dominio: </b>
                 {{data_details.domain}}
-              <div>
-                <span v-if="data_details.domain === 'Si'"> <strong class="tag-span">Transferencia Dominio</strong></span>
-                <span v-else><strong  class="tag-span-domain">Adquirir Nuevo Dominio</strong></span>
-              </div>
+                <div>
+                  <span v-if="data_details.domain === 'Si'"> <strong
+                    class="tag-span">Transferencia Dominio</strong></span>
+                  <span v-else><strong class="tag-span-domain">Adquirir Nuevo Dominio</strong></span>
+                </div>
               </div>
               <p class="is-size-7"><b>Certificado: </b>{{data_details.certificado}}</p>
               <p class="is-size-7"><b>Meses: </b>{{data_details.month}} </p>
-              <p class="is-size-7"> <span class="price-total">Total: {{formatterPeso(data_details.total)}}</span> </p>
+              <p class="is-size-7"><span class="price-total">Total: {{formatterPeso(data_details.total)}}</span></p>
             </div>
           </div>
         </div>
@@ -133,6 +159,7 @@
 
 <script>
 import axios from 'axios'
+
 export default {
   name: 'TableClientAdmin',
   props: ['idTable'],
@@ -162,13 +189,20 @@ export default {
     this.consultUser()
   },
   methods: {
+    copyLink () {
+      let copyText = document.getElementById('myInput')
+      copyText.select()
+      document.execCommand('copy')
+    },
     consultUser () {
       this.isLoading = true
       let id = this.idTable
       const URL_DATA_USER = `http://comunicacionescloudberry.com/payment/Api/users/${id}`
-      axios.get(URL_DATA_USER, { headers: {
-        'Authorization': `${this.token.token}`
-      }}).then((response) => {
+      axios.get(URL_DATA_USER, {
+        headers: {
+          'Authorization': `${this.token.token}`
+        }
+      }).then((response) => {
         this.data_info = response.data[0]
         this.isLoading = false
       })
@@ -236,7 +270,6 @@ export default {
 
   },
   computed: {
-
     txtpermision: function () {
       let permission
       if (this.data_info.permision === '1') {
@@ -245,53 +278,76 @@ export default {
         permission = 'Usuario'
       }
       return permission
+    },
+    urlCheckout () {
+      let hostname = window.location.hostname
+      let protocol = window.location.protocol
+      let id = this.idTable
+      return `${protocol}${hostname}/payment_service/${id}`
     }
   }
-
 }
 </script>
 
 <style scoped>
-.icon-information{
-  font-size: 22px;
-  padding: 12px;
-  color: #343434
-}
-.price-total{
-  float: right;
-  font-size: 20px;
-  background: #d21139;
-  padding: 5px 15px;
-  color: #fff;
-  border-radius: 4px;
-}
-.image-logo-icon{
-  width: 80px;
-  margin: auto;
-  background: #fff;
-  border-radius: 100px;
-  padding: 10px;
-  -webkit-box-shadow: 0px 0px 5px 0px rgba(181,181,181,1);
-  -moz-box-shadow: 0px 0px 5px 0px rgba(181,181,181,1);
-  box-shadow: 0px 0px 5px 0px rgba(181,181,181,1);
-}
-.options {
-  color: #6f6f6f!important;
-}
-.tag-span{
-  background: #628b18;
-  padding: 3px 8px;
-  color: #fff;
-  font-weight: 400;
-  border-radius: 4px;
-  font-size: 10px;
-}
-.tag-span-domain{
-  background: #7957d5;
-  padding: 3px 8px;
-  color: #fff;
-  font-weight: 400;
-  border-radius: 4px;
-  font-size: 10px;
-}
+  .icon-information {
+    font-size: 22px;
+    padding: 12px;
+    color: #343434
+  }
+
+  .price-total {
+    float: right;
+    font-size: 20px;
+    background: #d21139;
+    padding: 5px 15px;
+    color: #fff;
+    border-radius: 4px;
+  }
+
+  .image-logo-icon {
+    width: 80px;
+    margin: auto;
+    background: #fff;
+    border-radius: 100px;
+    padding: 10px;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(181, 181, 181, 1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(181, 181, 181, 1);
+    box-shadow: 0px 0px 5px 0px rgba(181, 181, 181, 1);
+  }
+
+  .options {
+    color: #6f6f6f !important;
+  }
+
+  .tag-span {
+    background: #628b18;
+    padding: 3px 8px;
+    color: #fff;
+    font-weight: 400;
+    border-radius: 4px;
+    font-size: 10px;
+  }
+
+  .tag-span-domain {
+    background: #7957d5;
+    padding: 3px 8px;
+    color: #fff;
+    font-weight: 400;
+    border-radius: 4px;
+    font-size: 10px;
+  }
+
+  .title {
+    color: #878787 !important;
+  }
+
+  .button-copy{
+    left: -40px;
+    background: #0000;
+  }
+
+  .input-url-copy{
+    padding-right: 10px;
+  }
 </style>

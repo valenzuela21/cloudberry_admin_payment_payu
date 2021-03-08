@@ -19,10 +19,6 @@
         <span class="is-size-7">{{ props.row.id_sale }}</span>
       </b-table-column>
 
-      <b-table-column field="numero-cedula" label="Número Cedula" width="130" v-slot="props">
-        {{ props.row.cedula }}
-      </b-table-column>
-
       <b-table-column field="nombre-completo" label="Nombre Completo" v-slot="props">
 
         <span class="is-size-7"> {{ props.row.name }}</span>

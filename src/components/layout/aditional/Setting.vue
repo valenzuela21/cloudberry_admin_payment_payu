@@ -6,10 +6,7 @@
             <div class="card-content">
               <h3 class="subtitle"> <b-icon
                 icon="account">
-              </b-icon> Información Cuenta</h3>
-              <b-field>
-                <b-tag>{{txtpermision}}</b-tag>
-              </b-field>
+              </b-icon> Información Cuenta  <b-tag>{{txtpermision}}</b-tag></h3>
               <p class="is-size-7"><strong>Nombre Usuario:</strong> {{userInfo.name_user}}</p>
               <p class="is-size-7"><strong>Correo electónico:</strong> {{userInfo.email}}</p>
               <p class="is-size-7"><strong>Usuario Creado:</strong> {{userInfo.created_at}}</p>
