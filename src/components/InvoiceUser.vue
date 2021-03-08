@@ -7,7 +7,7 @@
       </template>
       <template v-if="userInfo.permision === '0'">
         <div>
-          <img class="image-block" :src="'./static/block.png'" alt="block-page"/>
+          <img class="image-block" :src="require('@/../static/block.png')" alt="block-page"/>
           <p class="txt-block">No tienes permisos para ver esta pagina</p>
         </div>
       </template>

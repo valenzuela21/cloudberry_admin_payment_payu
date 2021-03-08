@@ -17,7 +17,7 @@
           <div>
             <div class="row">
               <div class="column">
-                <img :src="'/static/logo.png'" alt="image-logo" class="logo-factura" />
+                <img :src="require('@/../static/logo.png')" alt="image-logo" class="logo-factura" />
               </div>
               <div class="column">
                 <h2 class="text-align-right">Factura</h2>
@@ -44,7 +44,6 @@
                 <li><strong>Correo electrónico:</strong> {{ data.email }}</li>
                 <li><strong>Empresa:</strong>{{ data.business }}</li>
                 <li><strong>Identificación:</strong> {{ data.cedula }}</li>
-                <li><strong>Url Documento:</strong></li>
               </ul>
             </div>
 

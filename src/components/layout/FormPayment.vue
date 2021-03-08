@@ -23,7 +23,7 @@
       <input name="confirmationUrl" type="hidden"
              value="http://comunicacionescloudberry.com/payment/Api/confirmation"/>
 
-      <img :src="'./static/logo.png'" class="img-logo-payment">
+      <img :src="require('@/../static/logo.png')" class="img-logo-payment">
       <div class="columns">
         <div class="column">
           <b-field label="Nombre del titular"
